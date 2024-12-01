@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    ifstream inputFile("input.txt"); // Open the file
+    ifstream inputFile("../../input.txt");
 
     int n1, n2;
 
