@@ -16,55 +16,27 @@
 using namespace std;
 
 int main() {
-    ifstream inputFile("../../input.txt");
+    ifstream inputFile("../../input.txt"); // Open the file
 
-    vector<vector<int>> allVectors;
+    int n1, n2;
 
-    string line;
+    vector<int> arr1;
+    unordered_map<int, int> freq;
 
-    while (getline(inputFile, line)) { // Read file line by line
-        istringstream iss(line);
-        vector<int> currentVector;
-        int number;
-
-        while (iss >> number) { // Extract integers from the line
-            currentVector.push_back(number);
-        }
-        allVectors.push_back(currentVector);
+    // Read each line and parse the numbers
+    while (inputFile >> n1 >> n2) {
+        arr1.push_back(n1);
+        freq[n2]++;
     }
 
-    inputFile.close();
+    sort(arr1.begin(), arr1.end());
 
-    int count = 0;
+    int sim = 0;
 
-    for (int i = 0; i < allVectors.size(); i++) {
-
-        bool increasing = true;
-        bool decreasing = true;
-        for (int j = 0; j < allVectors[i].size()-1; j++) {
-            int diff = allVectors[i][j + 1] - allVectors[i][j];
-
-            if (abs(diff) < 1 || abs(diff) > 3) {
-                decreasing = false;
-                increasing = false;
-                break;
-            }
-            
-            if (diff > 0) {
-                decreasing = false;
-            } else if (diff < 0) {
-                increasing = false;
-            } else {
-                decreasing = false;
-                increasing = false;
-                break;
-            }
-        }
-
-        if (increasing || decreasing) {
-            count++;
-        }
+    int len = arr1.size();
+    for (int i = 0; i < len; i++) {
+        sim += arr1[i]*freq[arr1[i]];
     }
 
-    cout << count << endl;
+    cout << sim << endl;
 }
