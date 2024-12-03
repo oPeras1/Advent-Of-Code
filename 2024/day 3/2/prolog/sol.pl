@@ -30,7 +30,6 @@ sort_list(Input, Output) :-
     sort(1, @=<, Input, Sorted),  
     maplist(second_element, Sorted, Output).
 
-% Predicado para extrair o segundo elemento de cada sublista
 second_element([_, Elemento], Elemento).
 
 % Extract valid mul(A, B), do(), and don't() instructions from the string
