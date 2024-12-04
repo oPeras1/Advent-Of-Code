@@ -37,7 +37,14 @@ find_diagonal(Grid, (RowIdx, ColIdx)) :-
     length(Grid, N),
     between(0, N, RowIdx),
     between(0, N, ColIdx),
-    (diagonal_matches(Grid, RowIdx, ColIdx, 1, 1, 'XMAS'); diagonal_matches(Grid, RowIdx, ColIdx, 1, -1, 'XMAS')).
+    (diagonal_matches(Grid, RowIdx, ColIdx, 1, 1, 'XMAS'); diagonal_matches(Grid, RowIdx, ColIdx, -1, -1, 'SAMX')).
+
+
+find_diagonal(Grid, (RowIdx, ColIdx)) :-
+    length(Grid, N),
+    between(0, N, RowIdx),
+    between(0, N, ColIdx),
+    (diagonal_matches(Grid, RowIdx, ColIdx, 1, -1, 'XMAS'); diagonal_matches(Grid, RowIdx, ColIdx, -1, 1, 'SAMX')).
 
 diagonal_matches(Grid, Row, Col, RowStep, ColStep, Word) :-
     atom_chars(Word, [H|T]),

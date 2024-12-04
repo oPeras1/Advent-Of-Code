@@ -1,58 +1,50 @@
+% Read the grid from the file
 readfile(Count) :-
     FileName = '../../input.txt',
     open(FileName, read, Stream),
-    read_string(Stream, _, Text),
-    extract_instructions(Text, Instructions),
-    sort_list(Instructions, RealInstructions),
-    writeln(RealInstructions),
-    calculate_sum(RealInstructions, Count),
+    read_lines(Stream, Lines),
     close(Stream),
+    maplist(atom_chars, Lines, Grid),
+    findall(_, find_xmas(Grid, _), Matches),
+    length(Matches, Count),
     !.
 
-calculate_sum(Instructions, Sum) :-
-    calculate_sum(Instructions, 1, 0, Sum). % Start with enabled (1) and initial sum 0
+% Read all lines from the file into a list of atoms
+read_lines(Stream, []) :-
+    at_end_of_stream(Stream).
+read_lines(Stream, [Line|Lines]) :-
+    \+ at_end_of_stream(Stream),
+    read_line_to_string(Stream, Line),
+    read_lines(Stream, Lines).
 
-calculate_sum([], _, CurrentSum, CurrentSum).
-calculate_sum([mul(X, Y)|T], Enabled, CurrentSum, Sum) :-
-    (Enabled =:= 1 ->  NewSum is CurrentSum + X * Y ; NewSum = CurrentSum),
-    calculate_sum(T, Enabled, NewSum, Sum).
+find_xmas(Grid, Pos) :-
+    find_diagonal(Grid, Pos).
 
-calculate_sum([do()|T], _, CurrentSum, Sum) :-
-    calculate_sum(T, 1, CurrentSum, Sum).
+find_diagonal(Grid, (RowIdx, ColIdx)) :-
+    length(Grid, N),
+    between(0, N, RowIdx),
+    between(0, N, ColIdx),
+    MainDiagonalX is ColIdx - 1,
+    MainDiagonalY is RowIdx - 1,
+    AntiDiagonalX is ColIdx - 1,
+    AntiDiagonalY is RowIdx + 1,
+    (
+        (diagonal_matches(Grid, MainDiagonalY, MainDiagonalX, 1, 1, 'MAS');
+        diagonal_matches(Grid, MainDiagonalY, MainDiagonalX, 1, 1, 'SAM')),
+        (diagonal_matches(Grid, AntiDiagonalY, AntiDiagonalX, -1, 1, 'MAS');
+        diagonal_matches(Grid, AntiDiagonalY, AntiDiagonalX, -1, 1, 'SAM'))
+    ).
 
-calculate_sum(['don\'t()'|T], _, CurrentSum, Sum) :-
-    calculate_sum(T, 0, CurrentSum, Sum).
+diagonal_matches(Grid, Row, Col, RowStep, ColStep, Word) :-
+    atom_chars(Word, [H|T]),
+    nth0(Row, Grid, CurrentRow),
+    nth0(Col, CurrentRow, H),
+    check_diagonal(Grid, Row, Col, RowStep, ColStep, T).
 
-calculate_sum([_|T], Enabled, CurrentSum, Sum) :-
-    calculate_sum(T, Enabled, CurrentSum, Sum).
-
-sort_list(Input, Output) :-
-    sort(1, @=<, Input, Sorted),  
-    maplist(second_element, Sorted, Output).
-
-second_element([_, Elemento], Elemento).
-
-% Extract valid mul(A, B), do(), and don't() instructions from the string
-extract_instructions(Content, Instructions) :-
-    findall(Instruction, (
-        (   sub_string(Content, Start, _, _, 'mul('),
-            AfterStart is Start + 4,  % Skip 'mul('
-            sub_string(Content, AfterStart, _, 0, SubString),
-
-            sub_string(SubString, 0, Length, _, Rest), 
-            sub_string(Rest, _, _, 0, ')'), % Ensure the substring ends with ')'
-
-            sub_string(SubString, 0, Length, After, Rest),
-            sub_string(Rest, BeforeComma, 1, AfterCommaLength, ','),
-            BeforeComma >= 1,
-            sub_string(Rest, 0, BeforeComma, _, AStr),
-            AfterCommaIndex is BeforeComma + 1,
-            sub_string(Rest, AfterCommaIndex, RemainingLength, 1, BStr),
-            RemainingLength is AfterCommaLength - 1,
-            number_string(A, AStr),
-            number_string(B, BStr),
-            Instruction = [Start, mul(A, B)]
-        )
-        ;   (sub_string(Content, Start1, _, _, 'do()'), Instruction = [Start1,do()])
-        ;   (sub_string(Content, Start2, _, _, 'don\'t()'), Instruction = [Start2,'don\'t()'])
-    ), Instructions).
+check_diagonal(_, _, _, _, _, []).
+check_diagonal(Grid, Row, Col, RowStep, ColStep, [H|T]) :-
+    NewRow is Row + RowStep,
+    NewCol is Col + ColStep,
+    nth0(NewRow, Grid, NewRowData),
+    nth0(NewCol, NewRowData, H),
+    check_diagonal(Grid, NewRow, NewCol, RowStep, ColStep, T).
