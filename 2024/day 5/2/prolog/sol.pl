@@ -5,17 +5,33 @@ readfile(Count) :-
     ler_linhas(Stream, Linhas),  % Lê todas as linhas do ficheiro
     close(Stream),               % Fecha o ficheiro
     separar_linhas(Linhas, Pares, Listas),
-    filter_correct_updates(Pares, Listas, CorrectUpdates),
-    find_middle_pages(CorrectUpdates, Middles),
+    filter_incorrect_updates(Pares, Listas, IncorrectUpdates),
+    correct_updates(Pares, IncorrectUpdates, CorrectedUpdates),
+    find_middle_pages(CorrectedUpdates, Middles),
     sum_list(Middles, Count),
     !.
 
-filter_correct_updates(_, [], []).
-filter_correct_updates(Rules, [Update|Rest], [Update|CorrectUpdates]) :-
-    is_correct_order(Update, Rules),
-    filter_correct_updates(Rules, Rest, CorrectUpdates).
-filter_correct_updates(Rules, [_|Rest], CorrectUpdates) :-
-    filter_correct_updates(Rules, Rest, CorrectUpdates).
+correct_updates(_, [], []).
+correct_updates(Rules, [Update|Rest], [Corrected|CorrectedRest]) :-
+    sort_update(Rules, Update, Corrected),
+    correct_updates(Rules, Rest, CorrectedRest).
+
+sort_update(Rules, Update, Sorted) :-
+    findall([X, Y], (member([X, Y], Rules), member(X, Update), member(Y, Update)), RelevantRules),
+    predsort(compare_pages(RelevantRules), Update, Sorted).
+
+compare_pages(Rules, '<', X, Y) :-
+    member([X, Y], Rules), !.
+compare_pages(Rules, '>', X, Y) :-
+    member([Y, X], Rules), !.
+compare_pages(_, '=', _, _).
+
+filter_incorrect_updates(_, [], []).
+filter_incorrect_updates(Rules, [Update|Rest], [Update|IncorrectUpdates]) :-
+    \+ is_correct_order(Update, Rules),
+    filter_incorrect_updates(Rules, Rest, IncorrectUpdates).
+filter_incorrect_updates(Rules, [_|Rest], IncorrectUpdates) :-
+    filter_incorrect_updates(Rules, Rest, IncorrectUpdates).
 
 is_correct_order(Update, Rules) :-
     forall(member([X, Y], Rules), rule_respected(Update, X, Y)).
