@@ -24,7 +24,8 @@ with open("../../input.txt") as f:
 
     def is_valid(x, y, dx, dy):
         for i in range(word_len):
-            nx, ny = x + i * dx, y + i * dy
+            nx = x + i * dx
+            ny = y + i * dy
             if not (0 <= nx < rows and 0 <= ny < cols and data[nx][ny] == word[i]):
                 return False
         return True
