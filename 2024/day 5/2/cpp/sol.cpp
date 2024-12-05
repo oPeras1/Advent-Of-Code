@@ -1,73 +1,99 @@
 #include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <cmath>
-#include <map>
-#include <set>
-#include <queue>
-#include <stack>
-#include <unordered_map>
-#include <unordered_set>
-#include <sstream>
 #include <fstream>
-#include <numeric>
-#include <regex>
-
+#include <sstream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-vector<string> lines;
-int rows, cols;
-int word_len;
-string word;
+// Function to split a string by a delimiter
+vector<string> split(const string& s, char delimiter) {
+    vector<string> tokens;
+    string token;
+    istringstream tokenStream(s);
+    while (getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
 
-bool is_xmas(int x, int y);
+// Function to convert a vector of strings to a vector of integers
+vector<int> toIntVector(const vector<string>& strVec) {
+    vector<int> intVec;
+    for (const string& s : strVec) {
+        intVec.push_back(stoi(s));
+    }
+    return intVec;
+}
 
 int main() {
     ifstream inputFile("../../input.txt");
-
-    for (string line; getline(inputFile, line);) {
-        lines.push_back(line);
+    if (!inputFile.is_open()) {
+        cerr << "Error: Could not open input file." << endl;
+        return 1;
     }
 
-    rows = lines.size();
-    cols = lines[0].size();
+    string data((istreambuf_iterator<char>(inputFile)), istreambuf_iterator<char>());
+    inputFile.close();
 
-    word = "MAS";
-    word_len = word.size();
+    size_t separator = data.find("\n\n");
+    string part1 = data.substr(0, separator);
+    string part2 = data.substr(separator + 2);
+
+    vector<pair<int, int>> rules;
+    istringstream part1Stream(part1);
+    string line;
+    while (getline(part1Stream, line)) {
+        vector<string> ruleParts = split(line, '|');
+        rules.emplace_back(stoi(ruleParts[0]), stoi(ruleParts[1]));
+    }
+
+    vector<vector<int>> updates;
+    istringstream part2Stream(part2);
+    while (getline(part2Stream, line)) {
+        vector<string> updateParts = split(line, ',');
+        updates.push_back(toIntVector(updateParts));
+    }
 
     int count = 0;
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (is_xmas(i, j)) {
-                count++;
+    for (auto& update : updates) {
+        bool valid = true;
+        bool secondValid = false;
+
+        // Iteratively reorder until the update satisfies all rules
+        while (!secondValid) {
+            secondValid = true;
+
+            for (const auto& rule : rules) {
+                int val1 = rule.first;
+                int val2 = rule.second;
+
+                auto it1 = find(update.begin(), update.end(), val1);
+                auto it2 = find(update.begin(), update.end(), val2);
+
+                if (it1 != update.end() && it2 != update.end()) {
+                    int index1 = distance(update.begin(), it1);
+                    int index2 = distance(update.begin(), it2);
+
+                    if (index1 > index2) {
+                        swap(update[index1], update[index2]);
+                        secondValid = false;
+                        valid = false;
+                    }
+                }
             }
+        }
+
+        if (!valid) {
+            int length = update.size();
+            count += update[length / 2];
         }
     }
 
+    // Output the result
     cout << count << endl;
+
+    return 0;
 }
-
-bool is_xmas(int x, int y) {
-    if (x - 1 < 0 || x + 1 >= rows || y - 1 < 0 || y + 1 >= cols) {
-        return false;
-    }
-
-    string diag1;
-    string diag2;
-
-    for (int i = -1; i < word_len-1; i++) {
-        diag1 += lines[x + i][y + i];
-        diag2 += lines[x + i][y - i];
-    }
-
-    if ((diag1 == word || diag1 == string(word.rbegin(), word.rend())) and (diag2 == word || diag2 == string(word.rbegin(), word.rend()))) {
-        return true;
-    }
-
-    return false;
-}
-
-//g++ sol.cpp -o sol; ./sol
