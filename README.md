@@ -12,7 +12,7 @@
 | [Day 6](https://adventofcode.com/2024/day/6) | Guard Gallivant      | ⭐️ | ⭐️ | Python, C++, Prolog   |
 | [Day 7](https://adventofcode.com/2024/day/7) | Bridge Repair        | ⭐️ | ⭐️ | Python, Prolog        |
 | [Day 8](https://adventofcode.com/2024/day/8) | Resonant Collinearity | ⭐️ | ⭐️ | Python, Prolog        |
-| [Day 9](https://adventofcode.com/2024/day/9) | [Challenge Name]     |   |   |                       |
+| [Day 9](https://adventofcode.com/2024/day/9) | Disk Fragmenter     | ⭐️ | ⭐️ | Python |
 | [Day 10](https://adventofcode.com/2024/day/10) | [Challenge Name]    |   |   |                       |
 | [Day 11](https://adventofcode.com/2024/day/11) | [Challenge Name]    |   |   |                       |
 | [Day 12](https://adventofcode.com/2024/day/12) | [Challenge Name]    |   |   |                       |
