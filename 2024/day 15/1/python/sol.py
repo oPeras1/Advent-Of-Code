@@ -55,7 +55,7 @@ for char in directions:
 
 count = 0
 for y in range(len(map)):
-    for x in range(len(map[x])):
+    for x in range(len(map[y])):
         if map[y][x] == "O":
             count = count + 100*y + x
 
