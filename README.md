@@ -13,16 +13,16 @@
 | [Day 7](https://adventofcode.com/2024/day/7) | Bridge Repair        | ⭐️ | ⭐️ | Python, Prolog        |
 | [Day 8](https://adventofcode.com/2024/day/8) | Resonant Collinearity | ⭐️ | ⭐️ | Python, Prolog        |
 | [Day 9](https://adventofcode.com/2024/day/9) | Disk Fragmenter     | ⭐️ | ⭐️ | Python |
-| [Day 10](https://adventofcode.com/2024/day/10) | [Challenge Name]    |   |   |                       |
-| [Day 11](https://adventofcode.com/2024/day/11) | [Challenge Name]    |   |   |                       |
-| [Day 12](https://adventofcode.com/2024/day/12) | [Challenge Name]    |   |   |                       |
-| [Day 13](https://adventofcode.com/2024/day/13) | [Challenge Name]    |   |   |                       |
-| [Day 14](https://adventofcode.com/2024/day/14) | [Challenge Name]    |   |   |                       |
-| [Day 15](https://adventofcode.com/2024/day/15) | [Challenge Name]    |   |   |                       |
-| [Day 16](https://adventofcode.com/2024/day/16) | [Challenge Name]    |   |   |                       |
-| [Day 17](https://adventofcode.com/2024/day/17) | [Challenge Name]    |   |   |                       |
-| [Day 18](https://adventofcode.com/2024/day/18) | [Challenge Name]    |   |   |                       |
-| [Day 19](https://adventofcode.com/2024/day/19) | [Challenge Name]    |   |   |                       |
+| [Day 10](https://adventofcode.com/2024/day/10) | Hoof It    | ⭐️ | ⭐️ | Python |
+| [Day 11](https://adventofcode.com/2024/day/11) | Plutonian Pebbles    | ⭐️ | ⭐️ | Python |
+| [Day 12](https://adventofcode.com/2024/day/12) | Garden Groups    | ⭐️ | ⭐️ | Python |
+| [Day 13](https://adventofcode.com/2024/day/13) | Claw Contraption    | ⭐️ | ⭐️ | Python |
+| [Day 14](https://adventofcode.com/2024/day/14) | Restroom Redoubt    | ⭐️ | ⭐️ | Python |
+| [Day 15](https://adventofcode.com/2024/day/15) | Warehouse Woes    | ⭐️ | ⭐️ | Python |
+| [Day 16](https://adventofcode.com/2024/day/16) | Reindeer Maze    | ⭐️ | ⭐️ | Python |
+| [Day 17](https://adventofcode.com/2024/day/17) | Chronospatial Computer    | ⭐️ | ⭐️ | Python |
+| [Day 18](https://adventofcode.com/2024/day/18) | RAM Run    | ⭐️ | ⭐️ | Python |
+| [Day 19](https://adventofcode.com/2024/day/19) | Linen Layout    | ⭐️ | ⭐️ | Python |
 | [Day 20](https://adventofcode.com/2024/day/20) | [Challenge Name]    |   |   |                       |
 | [Day 21](https://adventofcode.com/2024/day/21) | [Challenge Name]    |   |   |                       |
 | [Day 22](https://adventofcode.com/2024/day/22) | [Challenge Name]    |   |   |                       |
