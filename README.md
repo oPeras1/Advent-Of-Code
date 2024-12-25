@@ -23,9 +23,9 @@
 | [Day 17](https://adventofcode.com/2024/day/17) | Chronospatial Computer    | ⭐️ | ⭐️ | Python |
 | [Day 18](https://adventofcode.com/2024/day/18) | RAM Run    | ⭐️ | ⭐️ | Python |
 | [Day 19](https://adventofcode.com/2024/day/19) | Linen Layout    | ⭐️ | ⭐️ | Python |
-| [Day 20](https://adventofcode.com/2024/day/20) | [Challenge Name]    |   |   |                       |
-| [Day 21](https://adventofcode.com/2024/day/21) | [Challenge Name]    |   |   |                       |
-| [Day 22](https://adventofcode.com/2024/day/22) | [Challenge Name]    |   |   |                       |
-| [Day 23](https://adventofcode.com/2024/day/23) | [Challenge Name]    |   |   |                       |
-| [Day 24](https://adventofcode.com/2024/day/24) | [Challenge Name]    |   |   |                       |
-| [Day 25](https://adventofcode.com/2024/day/25) | [Challenge Name]    |   |   |                       |
+| [Day 20](https://adventofcode.com/2024/day/20) | Race Condition    | ⭐️ | ⭐️ | Python |
+| [Day 21](https://adventofcode.com/2024/day/21) | Keypad Conundrum    | ⭐️ | ⭐️ | Python |
+| [Day 22](https://adventofcode.com/2024/day/22) | Monkey Market    | ⭐️ | ⭐️ | Python |
+| [Day 23](https://adventofcode.com/2024/day/23) | LAN Party    | ⭐️ | ⭐️ | Python |
+| [Day 24](https://adventofcode.com/2024/day/24) | Crossed Wires    | ⭐️ | ⭐️ | Python |
+| [Day 25](https://adventofcode.com/2024/day/25) | Code Chronicle    | ⭐️ | ⭐️ | Python |
